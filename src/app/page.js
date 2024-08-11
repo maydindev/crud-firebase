@@ -2,17 +2,35 @@
 import Image from "next/image";
 import App from "./App";
 import dynamic from 'next/dynamic';
+import { useEffect, useState } from "react";
 
-
+const isBrowser = typeof window !== 'undefined';
 const DynamicApp = dynamic(() => import('./App'), { ssr: false });
 
+
+
 export default function Home() {
+
+  const [firebaseReady, setFirebaseReady] = useState(false);
+
+  useEffect(() => {
+    if (isBrowser) {
+      import('./firebase').then(() => {
+        // Firebase'i burada başlatabilirsiniz.
+        setFirebaseReady(true);
+      });
+    }
+  }, []);
 
   return (
 
 
-     <DynamicApp/>
-
+    firebaseReady ? <DynamicApp /> : null
+     
+    
+     
+//<DynamicApp/>
+//<App/>
     /*
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
@@ -122,5 +140,5 @@ export default function Home() {
       </div>
     </main>
     */
-  );
+  )//;}
 }
