@@ -4,14 +4,14 @@ import App from "./App";
 import dynamic from 'next/dynamic';
 
 
-const App = dynamic(() => import('./App'), { ssr: false });
+const DynamicApp = dynamic(() => import('./App'), { ssr: false });
 
 export default function Home() {
 
   return (
 
 
-     <App/>
+     <DynamicApp/>
 
     /*
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
