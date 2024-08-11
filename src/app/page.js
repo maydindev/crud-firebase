@@ -3,20 +3,16 @@ import Image from "next/image";
 import App from "./App";
 import dynamic from 'next/dynamic';
 
-// Tarayıcı tarafında çalışması gereken bileşeni dinamik olarak yükleyin
-const BrowserOnlyComponent = dynamic(() => import("./App"), {
-  ssr: false, // Sunucu tarafında render edilmesini engeller
-});
+
 
 
 export default function Home() {
 
   return (
-    
-    <div>
-    <BrowserOnlyComponent />
-  </div>
-     /*<App/>*/
+
+
+     <App/>
+
     /*
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
