@@ -1,4 +1,5 @@
 // App.js
+/*
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase'; // firebase.js dosyasının doğru konumda olduğundan emin olun
 import { collection, addDoc, getDocs, updateDoc, doc, deleteDoc } from 'firebase/firestore';
@@ -112,5 +113,94 @@ function App() {
         </div>
     );
 }
+
+export default App;
+*/
+
+// app/page.js (veya ilgili sayfa bileşeni)
+import React, { useState, useEffect } from 'react';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore';
+
+// Firebase yapılandırması
+const firebaseConfig = {
+  apiKey: "your-api-key",
+  authDomain: "your-project-id.firebaseapp.com",
+  projectId: "your-project-id",
+  storageBucket: "your-project-id.appspot.com",
+  messagingSenderId: "your-messaging-sender-id",
+  appId: "your-app-id"
+};
+
+// Firebase'i tarayıcı tarafında başlat
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const App = () => {
+  const [items, setItems] = useState([]);
+  const [newItem, setNewItem] = useState('');
+
+  useEffect(() => {
+    // Tarayıcı tarafında çalışacak kod
+    const fetchItems = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'items'));
+        const itemsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setItems(itemsList);
+      } catch (error) {
+        console.error('Error fetching items: ', error);
+      }
+    };
+
+    fetchItems();
+  }, []);
+
+  const handleAddItem = async () => {
+    if (newItem.trim()) {
+      try {
+        await addDoc(collection(db, 'items'), { name: newItem });
+        setNewItem('');
+        // Ekleme işleminden sonra listeyi güncelle
+        const querySnapshot = await getDocs(collection(db, 'items'));
+        const itemsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setItems(itemsList);
+      } catch (error) {
+        console.error('Error adding item: ', error);
+      }
+    }
+  };
+
+  const handleDeleteItem = async (id) => {
+    try {
+      await deleteDoc(doc(db, 'items', id));
+      // Silme işleminden sonra listeyi güncelle
+      const querySnapshot = await getDocs(collection(db, 'items'));
+      const itemsList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setItems(itemsList);
+    } catch (error) {
+      console.error('Error deleting item: ', error);
+    }
+  };
+
+  return (
+    <div>
+      <input 
+        type="text" 
+        value={newItem} 
+        onChange={(e) => setNewItem(e.target.value)} 
+        placeholder="Add a new item" 
+      />
+      <button onClick={handleAddItem}>Add Item</button>
+      <ul>
+        {items.map(item => (
+          <li key={item.id}>
+            {item.name} 
+            <button onClick={() => handleDeleteItem(item.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
 export default App;
