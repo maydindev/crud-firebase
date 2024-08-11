@@ -298,7 +298,7 @@ function App() {
 
 export default App;
 */
-
+/*
 "use client";
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
@@ -565,3 +565,25 @@ function App() {
 }
 
 export default App;
+*/
+
+
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Meal from './meal';
+
+function App() {
+  return (
+    <Router>
+      <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/meal" element={<Meal />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
