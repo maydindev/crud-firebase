@@ -1,3 +1,27 @@
+Ana Sayfa
+- Saat sıralamasına göre o günün yapılanları liste
+- Baz Alınacak Değerler
+1 insüline eşdeğer karbonhidrat: 15 gr
+1 insüline eşdeğer insülin düzeltme faktörü: 50 mg/dL
+Sensör değişimine kalan süre: 3 gün
+- Günlük Hedefler
+Öğleden önce 30 dk, Öğleden sonra 30 dk yürüyüş
+Sensör Takibi
+Egzersiz Takibi
+Su Takibi
+diğer projeye de bak
+
+
+
+- Ölçüm, İlaç ve Beslenme Takibi Sayfası
+listenin sağındaki yediklerinin girileceği bir yer kalem bazında
+tokluk için bildirim iki saat sonra otomatik
+sayfada anlık değişim konusu
+
+
+
+/////////////////////////////////////
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
